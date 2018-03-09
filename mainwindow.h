@@ -13,12 +13,19 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    // Old style because moc is dumb.
+    void new_balance_window();
+
 private:
     auto ui_create_actions() -> void;
     auto ui_create_menus() -> void;
 
+    QTabWidget *tabs;
+
     QMenu *file_menu;
     QMenu *edit_menu;
+    QMenu *import_menu;
     QMenu *view_menu;
 
     QAction *export_action;
@@ -28,7 +35,7 @@ private:
     QAction *add_expense_action;
     QAction *add_transfer_action;
 
-    QAction *create_balance_action;
+    QAction *new_balance_action;
 
     std::shared_ptr<npl::database> db;
 };

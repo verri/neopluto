@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    this->setCentralWidget(new QTabWidget);
+    this->setCentralWidget(tabs = new QTabWidget);
     this->setMenuBar(new QMenuBar);
 
     this->ui_create_actions();
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if (!data_dir.exists())
         data_dir.mkpath(data_dir.path());
 
-    db = npl::database::open(qPrintable(QDir(data_dir.absolutePath() + "/main.db").absolutePath()));
+    db = npl::database::open(qPrintable(data_dir.filePath("main.db")));
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +51,11 @@ auto MainWindow::ui_create_actions() -> void
     add_transfer_action->setShortcut(tr("Ctrl+T", "Edit|Transfer"));
     add_transfer_action->setStatusTip(tr("Add a new transfer entry"));
     // connect(add_transfer_action, &QAction::triggered, ...)
+
+    new_balance_action = new QAction(tr("New &balance window"), this);
+    new_balance_action->setShortcut(tr("Ctrl+B", "View|Balance"));
+    new_balance_action->setStatusTip(tr("Create a new balance view"));
+    connect(new_balance_action, &QAction::triggered, this, &MainWindow::new_balance_window);
 }
 
 auto MainWindow::ui_create_menus() -> void
@@ -64,4 +69,15 @@ auto MainWindow::ui_create_menus() -> void
     edit_menu->addAction(add_income_action);
     edit_menu->addAction(add_expense_action);
     edit_menu->addAction(add_transfer_action);
+    edit_menu->addSeparator();
+    import_menu = edit_menu->addMenu(tr("Im&port"));
+
+    view_menu = menuBar()->addMenu(tr("&View"));
+    view_menu->addAction(new_balance_action);
+}
+
+
+auto MainWindow::new_balance_window() -> void
+{
+    tabs->addTab(new QWidget, "Foo");
 }
