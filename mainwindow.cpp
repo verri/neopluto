@@ -2,6 +2,8 @@
 
 #include <QTabWidget>
 #include <QMenuBar>
+#include <QStandardPaths>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -11,6 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui_create_actions();
     this->ui_create_menus();
+
+    QDir data_dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    if (!data_dir.exists())
+        data_dir.mkpath(data_dir.path());
+
+    db = npl::database::open(qPrintable(QDir(data_dir.absolutePath() + "/main.db").absolutePath()));
 }
 
 MainWindow::~MainWindow()

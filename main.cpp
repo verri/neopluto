@@ -4,6 +4,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationName("NeoPluto");
+    a.setOrganizationName("Verri");
+
     MainWindow w;
     w.show();
 

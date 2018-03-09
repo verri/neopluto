@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <neopluto/database.hpp>
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,6 +29,8 @@ private:
     QAction *add_transfer_action;
 
     QAction *create_balance_action;
+
+    std::shared_ptr<npl::database> db;
 };
 
 #endif // MAINWINDOW_H

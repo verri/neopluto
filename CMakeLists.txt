@@ -12,5 +12,7 @@ add_executable(npl main.cpp mainwindow.cpp mainwindow.h)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 
+target_compile_features(npl PRIVATE cxx_std_17)
+
 target_link_libraries(npl PRIVATE neopluto Qt5::Widgets Qt5::Core)
 target_include_directories(npl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
