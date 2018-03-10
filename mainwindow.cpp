@@ -2,6 +2,7 @@
 
 #include "balancewidget.h"
 #include "accountswidget.h"
+#include "tagswidget.h"
 
 #include <QTabWidget>
 #include <QMenuBar>
@@ -65,6 +66,11 @@ auto MainWindow::ui_create_actions() -> void
     view_accounts_action->setShortcut(tr("Ctrl+A", "View|Accounts"));
     view_accounts_action->setStatusTip(tr("Create a new accounts view"));
     connect(view_accounts_action, &QAction::triggered, this, &MainWindow::new_accounts_window);
+
+    view_tags_action = new QAction(tr("View &tags window"), this);
+    view_tags_action->setShortcut(tr("Ctrl+L", "View|Tags"));
+    view_tags_action->setStatusTip(tr("Create a new tags view"));
+    connect(view_tags_action, &QAction::triggered, this, &MainWindow::new_tags_window);
 }
 
 auto MainWindow::ui_create_menus() -> void
@@ -84,6 +90,7 @@ auto MainWindow::ui_create_menus() -> void
     view_menu = menuBar()->addMenu(tr("&View"));
     view_menu->addAction(view_balance_action);
     view_menu->addAction(view_accounts_action);
+    view_menu->addAction(view_tags_action);
 }
 
 template <typename Widget>
@@ -101,4 +108,9 @@ auto MainWindow::new_balance_window() -> void
 auto MainWindow::new_accounts_window() -> void
 {
     tabs->addTab(scrolled(new AccountsWidget(db)), "Accounts");
+}
+
+auto MainWindow::new_tags_window() -> void
+{
+    tabs->addTab(scrolled(new TagsWidget(db)), "Tags");
 }

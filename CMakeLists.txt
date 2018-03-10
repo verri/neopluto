@@ -8,7 +8,8 @@ add_subdirectory(external/libneopluto)
 set(CMAKE_AUTOMOC ON)
 
 add_executable(npl main.cpp mainwindow.cpp mainwindow.h balancewidget.cpp balancewidget.h
-    accountswidget.cpp accountswidget.h)
+    accountswidget.cpp accountswidget.h
+    tagswidget.cpp tagswidget.h)
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)

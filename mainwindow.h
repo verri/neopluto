@@ -17,6 +17,7 @@ public slots:
     // Old style because moc is dumb.
     void new_balance_window();
     void new_accounts_window();
+    void new_tags_window();
 
 private:
     auto ui_create_actions() -> void;
