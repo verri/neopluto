@@ -1,9 +1,13 @@
 #include "mainwindow.h"
 
+#include "balancewidget.h"
+#include "accountswidget.h"
+
 #include <QTabWidget>
 #include <QMenuBar>
 #include <QStandardPaths>
 #include <QDir>
+#include <QScrollArea>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -52,10 +56,15 @@ auto MainWindow::ui_create_actions() -> void
     add_transfer_action->setStatusTip(tr("Add a new transfer entry"));
     // connect(add_transfer_action, &QAction::triggered, ...)
 
-    new_balance_action = new QAction(tr("New &balance window"), this);
-    new_balance_action->setShortcut(tr("Ctrl+B", "View|Balance"));
-    new_balance_action->setStatusTip(tr("Create a new balance view"));
-    connect(new_balance_action, &QAction::triggered, this, &MainWindow::new_balance_window);
+    view_balance_action = new QAction(tr("View &balance window"), this);
+    view_balance_action->setShortcut(tr("Ctrl+B", "View|Balance"));
+    view_balance_action->setStatusTip(tr("Create a new balance view"));
+    connect(view_balance_action, &QAction::triggered, this, &MainWindow::new_balance_window);
+
+    view_accounts_action = new QAction(tr("View &accounts window"), this);
+    view_accounts_action->setShortcut(tr("Ctrl+A", "View|Accounts"));
+    view_accounts_action->setStatusTip(tr("Create a new accounts view"));
+    connect(view_accounts_action, &QAction::triggered, this, &MainWindow::new_accounts_window);
 }
 
 auto MainWindow::ui_create_menus() -> void
@@ -73,11 +82,23 @@ auto MainWindow::ui_create_menus() -> void
     import_menu = edit_menu->addMenu(tr("Im&port"));
 
     view_menu = menuBar()->addMenu(tr("&View"));
-    view_menu->addAction(new_balance_action);
+    view_menu->addAction(view_balance_action);
+    view_menu->addAction(view_accounts_action);
 }
 
+template <typename Widget>
+static inline auto scrolled(Widget* widget) {
+    const auto area = new QScrollArea;
+    area->setWidget(widget);
+    return area;
+}
 
 auto MainWindow::new_balance_window() -> void
 {
-    tabs->addTab(new QWidget, "Foo");
+    tabs->addTab(scrolled(new BalanceWidget), "Balance");
+}
+
+auto MainWindow::new_accounts_window() -> void
+{
+    tabs->addTab(scrolled(new AccountsWidget(db)), "Accounts");
 }

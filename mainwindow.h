@@ -16,6 +16,7 @@ public:
 public slots:
     // Old style because moc is dumb.
     void new_balance_window();
+    void new_accounts_window();
 
 private:
     auto ui_create_actions() -> void;
@@ -35,7 +36,9 @@ private:
     QAction *add_expense_action;
     QAction *add_transfer_action;
 
-    QAction *new_balance_action;
+    QAction *view_balance_action;
+    QAction *view_accounts_action;
+    QAction *view_tags_action;
 
     std::shared_ptr<npl::database> db;
 };
