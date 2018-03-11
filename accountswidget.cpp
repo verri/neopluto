@@ -20,6 +20,7 @@ AccountsWidget::AccountsWidget(Database *db_, QWidget *parent) :
 
     vbox_layout = new QVBoxLayout;
     vbox_layout->addWidget(new_widget);
+    vbox_layout->addStretch();
     setLayout(vbox_layout);
 
     refresh_accounts();
@@ -46,7 +47,7 @@ void AccountsWidget::refresh_accounts(QWidget *)
 
     db->get()->retrieve_accounts([this](npl::account account) {
         const auto widget = new AccountWidget(db, std::move(account));
-        vbox_layout->addWidget(widget);
+        vbox_layout->insertWidget(1, widget);
         account_widgets.append(widget);
         return true;
     });
