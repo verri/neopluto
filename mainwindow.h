@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include <neopluto/database.hpp>
+class Database;
 
 class MainWindow : public QMainWindow
 {
@@ -23,6 +23,8 @@ private:
     auto ui_create_actions() -> void;
     auto ui_create_menus() -> void;
 
+    Database *db;
+
     QTabWidget *tabs;
 
     QMenu *file_menu;
@@ -40,8 +42,6 @@ private:
     QAction *view_balance_action;
     QAction *view_accounts_action;
     QAction *view_tags_action;
-
-    std::shared_ptr<npl::database> db;
 };
 
 #endif // MAINWINDOW_H

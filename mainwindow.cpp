@@ -3,12 +3,14 @@
 #include "balancewidget.h"
 #include "accountswidget.h"
 #include "tagswidget.h"
+#include "database.h"
+
+#include <neopluto/database.hpp>
 
 #include <QTabWidget>
 #include <QMenuBar>
-#include <QStandardPaths>
-#include <QDir>
 #include <QScrollArea>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -19,11 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui_create_actions();
     this->ui_create_menus();
 
-    QDir data_dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
-    if (!data_dir.exists())
-        data_dir.mkpath(data_dir.path());
-
-    db = npl::database::open(qPrintable(data_dir.filePath("main.db")));
+    db = new Database(this);
 }
 
 MainWindow::~MainWindow()
