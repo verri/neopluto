@@ -7,13 +7,14 @@
 
 class QPushButton;
 class QLineEdit;
+class Database;
 
 class AccountWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    AccountWidget(npl::account acc_, QWidget *parent = nullptr);
+    AccountWidget(Database* db_, npl::account acc_, QWidget *parent = nullptr);
 
 private slots:
     void toggle_buttons(const QString&);
@@ -22,6 +23,7 @@ private slots:
     void erase_account(bool);
 
 private:
+    Database *db;
     npl::account acc;
 
     QLineEdit *name_edit;

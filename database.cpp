@@ -18,3 +18,8 @@ auto Database::get() const -> std::shared_ptr<npl::database>
 {
     return db_;
 }
+
+void Database::mark_modification(QWidget *widget)
+{
+    emit modified(widget);
+}

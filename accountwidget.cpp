@@ -1,12 +1,14 @@
 #include "accountwidget.h"
 
+#include "database.h"
+
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
 
-AccountWidget::AccountWidget(npl::account acc_, QWidget *parent)
-    : QWidget(parent), acc(std::move(acc_))
+AccountWidget::AccountWidget(Database *db_, npl::account acc_, QWidget *parent)
+    : QWidget(parent), db(db_), acc(std::move(acc_))
 {
     name_edit = new QLineEdit(acc.retrieve_name().c_str());
     update_button = new QPushButton("Update");
@@ -42,6 +44,8 @@ void AccountWidget::toggle_buttons(const QString& new_name)
 void AccountWidget::update_account_name(bool)
 {
     acc.update_name(qPrintable(name_edit->text()));
+    db->mark_modification(this);
+
     update_button->setEnabled(false);
     revert_button->setEnabled(false);
 }
@@ -64,5 +68,5 @@ void AccountWidget::erase_account(bool)
         return;
 
     acc.erase();
-    deleteLater();
+    db->mark_modification(this);
 }

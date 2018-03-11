@@ -18,9 +18,10 @@ public:
     auto get() const -> std::shared_ptr<npl::database>;
 
 signals:
-    void modified();
+    void modified(QWidget*);
 
 public slots:
+    void mark_modification(QWidget*widget);
 
 private:
     std::shared_ptr<npl::database> db_;

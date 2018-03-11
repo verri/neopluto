@@ -4,6 +4,9 @@
 #include <QWidget>
 
 class Database;
+class NewAccountWidget;
+class QVBoxLayout;
+class AccountWidget;
 
 class AccountsWidget : public QWidget
 {
@@ -14,9 +17,16 @@ public:
 signals:
 
 public slots:
+    void refresh_accounts(QWidget* = nullptr);
+
+private slots:
+    void create_account(const QString&name);
 
 private:
     Database *db;
+    QVBoxLayout *vbox_layout;
+    NewAccountWidget *new_widget;
+    QVector<AccountWidget*> account_widgets;
 };
 
 #endif // ACCOUNTSWIDGET_H

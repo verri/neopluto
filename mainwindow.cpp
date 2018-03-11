@@ -25,6 +25,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_create_menus();
 
     db = new Database(this);
+
+    tabs->setTabsClosable(true);
+    connect(tabs, &QTabWidget::tabCloseRequested, [this](int index) {
+        const auto widget = tabs->widget(index);
+        tabs->removeTab(index);
+        delete widget;
+    });
 }
 
 MainWindow::~MainWindow()
@@ -98,20 +105,24 @@ template <typename Widget>
 static inline auto scrolled(Widget* widget) {
     const auto area = new QScrollArea;
     area->setWidget(widget);
+    area->setWidgetResizable(true);
     return area;
 }
 
 auto MainWindow::new_balance_window() -> void
 {
     tabs->addTab(scrolled(new BalanceWidget), "Balance");
+    tabs->setCurrentIndex(tabs->count() - 1);
 }
 
 auto MainWindow::new_accounts_window() -> void
 {
     tabs->addTab(scrolled(new AccountsWidget(db)), "Accounts");
+    tabs->setCurrentIndex(tabs->count() - 1);
 }
 
 auto MainWindow::new_tags_window() -> void
 {
     tabs->addTab(scrolled(new TagsWidget(db)), "Tags");
+    tabs->setCurrentIndex(tabs->count() - 1);
 }
