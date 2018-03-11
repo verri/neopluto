@@ -11,6 +11,7 @@ add_executable(npl main.cpp
     mainwindow.cpp mainwindow.h
     balancewidget.cpp balancewidget.h
     accountswidget.cpp accountswidget.h
+    accountwidget.cpp accountwidget.h
     tagswidget.cpp tagswidget.h
     database.cpp database.h)
 

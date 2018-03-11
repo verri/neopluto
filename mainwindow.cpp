@@ -15,11 +15,14 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    this->setCentralWidget(tabs = new QTabWidget);
-    this->setMenuBar(new QMenuBar);
+    setCentralWidget(tabs = new QTabWidget);
+    setMenuBar(new QMenuBar);
 
-    this->ui_create_actions();
-    this->ui_create_menus();
+    setMinimumWidth(640);
+    setMinimumHeight(480);
+
+    ui_create_actions();
+    ui_create_menus();
 
     db = new Database(this);
 }
