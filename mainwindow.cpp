@@ -101,28 +101,20 @@ auto MainWindow::ui_create_menus() -> void
     view_menu->addAction(view_tags_action);
 }
 
-template <typename Widget>
-static inline auto scrolled(Widget* widget) {
-    const auto area = new QScrollArea;
-    area->setWidget(widget);
-    area->setWidgetResizable(true);
-    return area;
-}
-
 auto MainWindow::new_balance_window() -> void
 {
-    tabs->addTab(scrolled(new BalanceWidget), "Balance");
+    tabs->addTab(new BalanceWidget, "Balance");
     tabs->setCurrentIndex(tabs->count() - 1);
 }
 
 auto MainWindow::new_accounts_window() -> void
 {
-    tabs->addTab(scrolled(new AccountsWidget(db)), "Accounts");
+    tabs->addTab(new AccountsWidget(db), "Accounts");
     tabs->setCurrentIndex(tabs->count() - 1);
 }
 
 auto MainWindow::new_tags_window() -> void
 {
-    tabs->addTab(scrolled(new TagsWidget(db)), "Tags");
+    tabs->addTab(new TagsWidget(db), "Tags");
     tabs->setCurrentIndex(tabs->count() - 1);
 }

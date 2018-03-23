@@ -24,7 +24,7 @@ private slots:
 
 private:
     Database *db;
-    QVBoxLayout *vbox_layout;
+    QVBoxLayout *list_layout;
     NewAccountWidget *new_widget;
     QVector<AccountWidget*> account_widgets;
 };

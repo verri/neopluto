@@ -7,7 +7,7 @@ add_subdirectory(external/libneopluto)
 
 set(CMAKE_AUTOMOC ON)
 
-add_executable(npl main.cpp
+add_executable(npl main.cpp utils.h
     mainwindow.cpp mainwindow.h
     balancewidget.cpp balancewidget.h
     accountswidget.cpp accountswidget.h
