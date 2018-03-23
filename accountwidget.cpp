@@ -1,11 +1,11 @@
 #include "accountwidget.h"
 
 #include "database.h"
+#include "utils.h"
 
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QMessageBox>
 
 AccountWidget::AccountWidget(Database *db_, npl::account acc_, QWidget *parent)
     : QWidget(parent), db(db_), acc(std::move(acc_))
@@ -59,12 +59,7 @@ void AccountWidget::revert_account_name(bool)
 
 void AccountWidget::erase_account(bool)
 {
-    QMessageBox msg;
-    msg.setText(QString("Are you sure?"));
-    msg.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-    msg.setDefaultButton(QMessageBox::Cancel);
-
-    if (msg.exec() == QMessageBox::Cancel)
+    if (are_you_sure_message(this) == QMessageBox::Cancel)
         return;
 
     acc.erase();
