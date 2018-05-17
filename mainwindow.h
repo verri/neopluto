@@ -33,6 +33,7 @@ private:
     QMenu *view_menu;
 
     QAction *export_action;
+    QAction *close_tab_action;
     QAction *quit_action;
 
     QAction *add_income_action;

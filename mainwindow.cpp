@@ -50,6 +50,19 @@ auto MainWindow::ui_create_actions() -> void
     quit_action->setStatusTip(tr("Exit the application"));
     connect(quit_action, &QAction::triggered, this, &QWidget::close);
 
+    close_tab_action = new QAction(tr("&Close"), this);
+    close_tab_action->setShortcut(tr("Ctrl+W", "File|Close"));
+    close_tab_action->setEnabled(false);
+
+    connect(tabs, &QTabWidget::currentChanged, [this](int index) {
+        close_tab_action->setEnabled(index != -1);
+    });
+
+    connect(close_tab_action, &QAction::triggered, [this](bool){
+        if (auto widget = tabs->currentWidget())
+            widget->deleteLater();
+    });
+
     add_income_action = new QAction(tr("Add &income..."), this);
     add_income_action->setShortcut(tr("Ctrl+I", "Edit|Income"));
     add_income_action->setStatusTip(tr("Add a new income entry"));
@@ -86,6 +99,8 @@ auto MainWindow::ui_create_menus() -> void
     file_menu = menuBar()->addMenu(tr("&File"));
     file_menu->addAction(export_action);
     file_menu->addSeparator();
+    file_menu->addAction(close_tab_action);
+    file_menu->addSeparator();
     file_menu->addAction(quit_action);
 
     edit_menu = menuBar()->addMenu(tr("&Edit"));
@@ -103,7 +118,7 @@ auto MainWindow::ui_create_menus() -> void
 
 auto MainWindow::new_balance_window() -> void
 {
-    tabs->addTab(new BalanceWidget, "Balance");
+    tabs->addTab(new BalanceWidget(db), "Balance");
     tabs->setCurrentIndex(tabs->count() - 1);
 }
 

@@ -3,15 +3,20 @@
 
 #include <QWidget>
 
+class Database;
+
 class BalanceWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit BalanceWidget(QWidget *parent = nullptr);
+    explicit BalanceWidget(Database* db_, QWidget *parent = nullptr);
 
 signals:
 
 public slots:
+
+private:
+    Database* db;
 };
 
 #endif // BALANCEWIDGET_H

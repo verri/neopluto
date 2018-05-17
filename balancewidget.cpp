@@ -1,9 +1,11 @@
 #include "balancewidget.h"
 
+#include "database.h"
+
 #include <QVBoxLayout>
 #include <QLabel>
 
-BalanceWidget::BalanceWidget(QWidget *parent) : QWidget(parent)
+BalanceWidget::BalanceWidget(Database* db_, QWidget *parent) : QWidget(parent), db(db_)
 {
     const auto layout = new QVBoxLayout;
 
