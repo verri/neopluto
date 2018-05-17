@@ -4,6 +4,8 @@
 #include <QWidget>
 
 class Database;
+class EntryWidget;
+class QVBoxLayout;
 
 class BalanceWidget : public QWidget
 {
@@ -14,9 +16,12 @@ public:
 signals:
 
 public slots:
+    void refresh_entries(QWidget* = nullptr);
 
 private:
     Database* db;
+    QVBoxLayout *list_layout;
+    QVector<EntryWidget*> entry_widgets;
 };
 
 #endif // BALANCEWIDGET_H

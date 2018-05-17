@@ -14,6 +14,10 @@ EntryWidget::EntryWidget(Database *db_, npl::entry ent_, QWidget *parent) :
     date_edit = new QDateEdit(QDate(date.year, date.month, date.day));
 
     value_spin = new QDoubleSpinBox;
+    value_spin->setRange(0.0, std::numeric_limits<double>::max());
+    value_spin->setDecimals(2);
+    value_spin->setSingleStep(1.0);
+    value_spin->setValue(entry.retrieve_value() / 100.0);
 
     const auto layout = new QHBoxLayout;
 
