@@ -6,6 +6,7 @@
 #include <QWidget>
 
 class Database;
+class QComboBox;
 
 namespace npl
 {
@@ -25,9 +26,16 @@ public:
 signals:
 
 public slots:
+    void setType(int index);
+    void setIncome();
+    void setExpense();
+    void setTransfer();
 
 private:
     Database *db;
+    QComboBox *type_box;
+    QComboBox *from_box;
+    QComboBox *to_box;
 };
 
 #endif // ENTRYTYPEBOX_H

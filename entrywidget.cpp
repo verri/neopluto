@@ -19,6 +19,14 @@ EntryWidget::EntryWidget(Database *db_, npl::entry ent_, QWidget *parent) :
     desc_edit->setText(entry.retrieve_description().c_str());
 
     type_box = new EntryTypeBox(db);
+    if (entry.is_income())
+        type_box->setIncome();
+    else if (entry.is_expense())
+        type_box->setExpense();
+    else if (entry.is_transfer())
+        type_box->setTransfer();
+    else
+        throw std::runtime_error{"Invalid entry."};
 
     value_spin = new QDoubleSpinBox;
     value_spin->setRange(0.0, std::numeric_limits<double>::max());

@@ -1,30 +1,60 @@
 #include "entrytypebox.h"
 
+#include "database.h"
+
 #include <QHBoxLayout>
 #include <QComboBox>
-#include <QRadioButton>
+
+#include <neopluto/account.hpp>
+#include <neopluto/database.hpp>
 
 EntryTypeBox::EntryTypeBox(Database *db_, QWidget *parent) : QWidget(parent), db(db_)
 {
     const auto layout = new QHBoxLayout;
-    const auto combo_box = new QComboBox;
 
-    const auto income_button = new QRadioButton(tr("I"));
-    const auto expense_button = new QRadioButton(tr("E"));
-    const auto transfer_button = new QRadioButton(tr("T"));
+    type_box = new QComboBox;
+    from_box = new QComboBox;
+    to_box = new QComboBox;
 
-    const auto type_widget = new QWidget;
+    type_box->insertItem(0, "Income");
+    type_box->insertItem(1, "Expense");
+    type_box->insertItem(2, "Transfer");
 
-    const auto type_layout = new QHBoxLayout;
+    connect(type_box, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &EntryTypeBox::setType);
 
-    type_layout->addWidget(income_button);
-    type_layout->addWidget(expense_button);
-    type_layout->addWidget(transfer_button);
+    layout->addWidget(type_box);
+    layout->addWidget(from_box);
+    layout->addWidget(to_box);
 
-    type_widget->setLayout(type_layout);
-
-    layout->addWidget(type_widget);
-    layout->addWidget(combo_box);
+    db->get()->retrieve_accounts([this, i = 0](npl::account account) mutable {
+        const auto name = account.retrieve_name();
+        from_box->insertItem(i, name.c_str());
+        to_box->insertItem(i, name.c_str());
+        ++i;
+        return true;
+    });
 
     setLayout(layout);
+}
+
+
+void EntryTypeBox::setType(int index)
+{
+    from_box->setVisible(index != 0);
+    to_box->setVisible(index != 1);
+}
+
+void EntryTypeBox::setIncome()
+{
+    setType(0);
+}
+
+void EntryTypeBox::setExpense()
+{
+    setType(1);
+}
+
+void EntryTypeBox::setTransfer()
+{
+    setType(2);
 }
