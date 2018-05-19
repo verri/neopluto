@@ -36,6 +36,10 @@ private:
     EntryTypeBox *type_box;
     QDoubleSpinBox *value_spin;
     LabelBox *label_box;
+
+    QPushButton *update_button;
+    QPushButton *revert_button;
+    QPushButton *erase_button;
 };
 
 #endif // ENTRYWIDGET_H

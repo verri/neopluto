@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(tabs = new QTabWidget);
     setMenuBar(new QMenuBar);
 
-    setMinimumWidth(640);
-    setMinimumHeight(480);
+    setMinimumWidth(800);
+    setMinimumHeight(600);
 
     ui_create_actions();
     ui_create_menus();
