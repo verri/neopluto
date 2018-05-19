@@ -35,6 +35,7 @@ EntryTypeBox::EntryTypeBox(Database *db_, QWidget *parent) : QWidget(parent), db
     });
 
     setLayout(layout);
+    setType(0);
 }
 
 
@@ -47,14 +48,17 @@ void EntryTypeBox::setType(int index)
 void EntryTypeBox::setIncome()
 {
     setType(0);
+    type_box->setCurrentIndex(0);
 }
 
 void EntryTypeBox::setExpense()
 {
     setType(1);
+    type_box->setCurrentIndex(1);
 }
 
 void EntryTypeBox::setTransfer()
 {
     setType(2);
+    type_box->setCurrentIndex(2);
 }

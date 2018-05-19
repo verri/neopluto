@@ -4,6 +4,7 @@
 #include "accountswidget.h"
 #include "tagswidget.h"
 #include "database.h"
+#include "entrydialog.h"
 
 #include <neopluto/database.hpp>
 
@@ -66,17 +67,29 @@ auto MainWindow::ui_create_actions() -> void
     add_income_action = new QAction(tr("Add &income..."), this);
     add_income_action->setShortcut(tr("Ctrl+I", "Edit|Income"));
     add_income_action->setStatusTip(tr("Add a new income entry"));
-    // connect(add_income_action, &QAction::triggered, ...)
+    connect(add_income_action, &QAction::triggered, [this](bool){
+        EntryDialog dialog(db, this);
+        dialog.setIncome();
+        dialog.exec();
+    });
 
     add_expense_action = new QAction(tr("Add e&xpense..."), this);
     add_expense_action->setShortcut(tr("Ctrl+X", "Edit|Expense"));
     add_expense_action->setStatusTip(tr("Add a new expense entry"));
-    // connect(add_expense_action, &QAction::triggered, ...)
+    connect(add_expense_action, &QAction::triggered, [this](bool){
+        EntryDialog dialog(db, this);
+        dialog.setExpense();
+        dialog.exec();
+    });
 
     add_transfer_action = new QAction(tr("Add &transfer..."), this);
     add_transfer_action->setShortcut(tr("Ctrl+T", "Edit|Transfer"));
     add_transfer_action->setStatusTip(tr("Add a new transfer entry"));
-    // connect(add_transfer_action, &QAction::triggered, ...)
+    connect(add_transfer_action, &QAction::triggered, [this](bool){
+        EntryDialog dialog(db, this);
+        dialog.setTransfer();
+        dialog.exec();
+    });
 
     view_balance_action = new QAction(tr("View &balance window"), this);
     view_balance_action->setShortcut(tr("Ctrl+B", "View|Balance"));

@@ -13,6 +13,7 @@ add_executable(npl main.cpp utils.h
     accountswidget.cpp accountswidget.h
     accountwidget.cpp accountwidget.h
     entrywidget.cpp entrywidget.h
+    entrydialog.cpp entrydialog.h
     entrytypebox.cpp entrytypebox.h
     newaccountwidget.cpp newaccountwidget.h
     tagswidget.cpp tagswidget.h
